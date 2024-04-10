@@ -1,0 +1,7 @@
+name: "parsl-exploration"
+channels:
+  - "conda-forge"
+  - "nodefaults"
+dependencies:
+  - python ~=3.12
+  - parsl ~=2024.4
