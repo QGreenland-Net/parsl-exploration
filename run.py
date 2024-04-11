@@ -61,10 +61,12 @@ with parsl.load(config):
     print("Random number: %s" % random.result())
 
     # Save the random number to a file
+    output_path = os.path.join(os.getcwd(), "sequential-output.txt")
     saved = save(
-        random, outputs=[File(os.path.join(os.getcwd(), "sequential-output.txt"))]
+        random, outputs=[File(output_path)]
     )
+    saved.result()
 
     # Print the output file
-    with open(saved.outputs[0].result(), "r") as f:
+    with open(output_path, "r") as f:
         print("File contents: %s" % f.read())
