@@ -59,7 +59,7 @@ def save_value_to_file(
     value,
     output_filepath,
     stdout="stdout.txt",  # Requests Parsl to return the stdout
-    stderr="stderr.txt",  # Requests Parsl to return the stdout
+    stderr="stderr.txt",  # Requests Parsl to return the stderr
 ):
     return f"echo {value} &> {output_filepath}"
 
