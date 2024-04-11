@@ -19,6 +19,7 @@ config = Config(
             worker_logdir_root="/tmp/",
             # Address for the pod worker to connect back
             address=address_by_route(),
+            # https://parsl.readthedocs.io/en/stable/stubs/parsl.providers.KubernetesProvider.html#parsl.providers.KubernetesProvider
             provider=KubernetesProvider(
                 namespace="default",
                 # Docker image url to use for pods
@@ -26,6 +27,8 @@ config = Config(
                 # Command to be run upon pod start, such as:
                 # "module load Anaconda; source activate parsl_env".
                 # or "pip install parsl"
+                # NOTE: parsl needs to be installed or the pod will fail to
+                # start properly and the process will hang.
                 worker_init="pip install parsl",
                 # The secret key to download the image
                 # secret="YOUR_KUBE_SECRET",
