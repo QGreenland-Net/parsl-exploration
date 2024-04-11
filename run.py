@@ -88,7 +88,10 @@ with parsl.load(config):
     # Then print the results.
     print("Reading stdout from remote")
     print(read_and_return(saved.stdout).result())
+    print()
     print("Reading stderr from remote")
     print(read_and_return(saved.stderr).result())
+    print()
     print("Reading file from remote")
     print(read_and_return(output_path).result())
+    print()
