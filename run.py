@@ -16,7 +16,7 @@ config = Config(
             label="kube-htex",
             cores_per_worker=1,
             max_workers_per_node=1,
-            worker_logdir_root="YOUR_WORK_DIR",
+            worker_logdir_root="/tmp/",
 
             # Address for the pod worker to connect back
             address=address_by_route(),
