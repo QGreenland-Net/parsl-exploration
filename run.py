@@ -51,8 +51,19 @@ def generate(limit):
 
 # App that writes a variable to a file
 @bash_app
-def save(variable, outputs=[]):
+def save(
+    variable,
+    outputs=[],
+    stdout="stdout.txt",  # Requests Parsl to return the stdout
+    stderr="stderr.txt",  # Requests Parsl to return the stdout
+):
     return "echo %s &> %s" % (variable, outputs[0])
+
+
+@python_app
+def read_and_return(fp):
+    with open(fp, "r") as f:
+        return f.read()
 
 
 with parsl.load(config):
@@ -61,12 +72,18 @@ with parsl.load(config):
     print("Random number: %s" % random.result())
 
     # Save the random number to a file
-    output_path = os.path.join(os.getcwd(), "sequential-output.txt")
+    output_path = "sequential-output.txt"
     saved = save(
         random, outputs=[File(output_path)]
     )
+
+    # Wait until `save` completes
     saved.result()
 
-    # Print the output file
-    with open(output_path, "r") as f:
-        print("File contents: %s" % f.read())
+    # Then print the results.
+    print("Reading stdout from remote")
+    print(read_and_return(saved.stdout).result())
+    print("Reading stderr from remote")
+    print(read_and_return(saved.stderr).result())
+    print("Reading file from remote")
+    print(read_and_return(output_path).result())
