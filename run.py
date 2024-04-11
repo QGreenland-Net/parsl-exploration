@@ -1,7 +1,12 @@
+import os
+
 from parsl.config import Config
 from parsl.executors import HighThroughputExecutor
 from parsl.providers import KubernetesProvider
 from parsl.addresses import address_by_route
+from parsl import python_app, bash_app
+import parsl
+from parsl.data_provider.files import File
 
 
 config = Config(
@@ -30,7 +35,7 @@ config = Config(
                 # secret="YOUR_KUBE_SECRET",
 
                 # Should follow the Kubernetes naming rules
-                pod_name="YOUR-POD-Name",
+                pod_name="new-pod-name",
 
                 nodes_per_block=1,
                 init_blocks=1,
