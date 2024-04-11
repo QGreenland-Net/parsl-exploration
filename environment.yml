@@ -5,3 +5,4 @@ channels:
 dependencies:
   - python ~=3.11.0
   - parsl-with-kubernetes ~=2024.4
+  - python-kubernetes
