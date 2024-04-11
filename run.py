@@ -54,13 +54,14 @@ def generate(limit):
 
 # App that writes a variable to a file
 @bash_app
-def save(
-    variable,
-    outputs=[],
+def save_value_to_file(
+    *,
+    value,
+    output_filepath,
     stdout="stdout.txt",  # Requests Parsl to return the stdout
     stderr="stderr.txt",  # Requests Parsl to return the stdout
 ):
-    return "echo %s &> %s" % (variable, outputs[0])
+    return f"echo {value} &> {output_filepath}"
 
 
 @python_app
@@ -72,12 +73,13 @@ def read_and_return(fp):
 with parsl.load(config):
     # Generate a random number between 1 and 10
     random = generate(10)
-    print("Random number: %s" % random.result())
+    print(f"Random number: {random.result()}")
 
     # Save the random number to a file
     output_path = "sequential-output.txt"
-    saved = save(
-        random, outputs=[File(output_path)]
+    saved = save_value_to_file(
+        value=random,
+        output_filepath=File(output_path),
     )
 
     # Wait until `save` completes
