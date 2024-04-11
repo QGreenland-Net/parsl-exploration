@@ -14,11 +14,6 @@ The
 [Parsl user guide's "Kubernetes Clusters" section](https://parsl.readthedocs.io/en/stable/userguide/configuring.html#kubernetes-clusters)
 is a good place to start.
 
-> [!WARNING]
-> I'm getting `ModuleNotFoundError: No module named 'kubernetes'` when attempting
-> `import kubernetes` and this is causing parsl to fail to speak to the cluster.
-> `parsl-with-kubernetes` is included in the environment to resolve this, but that
-> doesn't fix the issue! A problem with the feedstock?
 
 > [!NOTE]
 > TODO
@@ -26,5 +21,14 @@ is a good place to start.
 
 ## Submitting jobs
 
+Submit the example job defined in `run.py` with:
+
+```
+python run.py
+```
 > [!NOTE]
-> TODO
+> The local version of python and parsl must match the remote version!
+
+> [!WARNING]
+> If a run fails, it is possible that a pod will get "stuck" and not get cleaned
+> up properly. This may require manual cleanup! TODO: how?
