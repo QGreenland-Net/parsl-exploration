@@ -4,4 +4,4 @@ channels:
   - "nodefaults"
 dependencies:
   - python ~=3.12
-  - parsl ~=2024.4
+  - parsl-with-kubernetes ~=2024.4
