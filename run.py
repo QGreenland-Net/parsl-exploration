@@ -1,5 +1,4 @@
-"""Example parsl workflow for kubernetes
-"""
+"""Example parsl workflow to be executed on kubernetes."""
 
 import subprocess
 
@@ -20,11 +19,22 @@ def get_k8s_context() -> str:
         capture_output=True,
     )
 
-    result.check_returncode()
+    try:
+        result.check_returncode()
+    except:
+        raise RuntimeError(
+            "Context not set. Use `kubectl config use-context` to select one."
+        )
 
     context = result.stdout.decode("utf8").strip()
 
     assert context in ("rancher-desktop", "dev-qgnet")
+    if context == "dev-qgnet":
+        raise NotImplementedError(
+            "Running on the 'dev-qgnet' namespace fails due to container"
+            " communication issues. Symptom: This script hangs. Remove this check from"
+            " the code to re-test."
+        )
 
     return context
 
