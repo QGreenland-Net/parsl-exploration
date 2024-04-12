@@ -21,6 +21,19 @@ is a good place to start.
 
 ## Submitting jobs
 
+First, select the appropriate k8s context. E.g., to run locally:
+
+```
+kubectl config use-config rancher-desktop
+```
+
+to run on the `dev-qgnet` k8s cluster:
+
+```
+kubectl config use-config dev-qgnet
+```
+
+
 Submit the example job defined in `run.py` with:
 
 ```
