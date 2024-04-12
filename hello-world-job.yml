@@ -1,0 +1,51 @@
+apiVersion: "batch/v1"
+kind: "Job"
+metadata:
+  name: "parsl-init"
+spec:
+  # TODO: when completions is 1, parallelism must be 1, but do we need to specify it?
+  parallelism: 1
+  completions: 1
+  template:
+    metadata:
+      name: "parsl-init"
+    spec:
+      # TODO: Why do we need this? Can ADC fix it? Without, we get errors like:
+      #     MountVolume.SetUp failed for volume "kube-api-access-xxxxx" : object "qgnet"/"kube-root-ca.crt" not registered
+      automountServiceAccountToken: false
+      volumes:
+        - name: "parsl-init-scripts-volume"
+          configMap:
+            name: "parsl-init-scripts"
+      containers:
+        - name: "parsl-init"
+          image: "python"
+          volumeMounts:
+            - mountPath: "/parsl-init-scripts"
+              name: "parsl-init-scripts-volume"
+          env:
+            # TODO: Do we need this?
+            - name: "HOME"
+              value: "/tmp"
+          command:
+            - "python"
+            - "/parsl-init-scripts/run.py"  # Filename from ConfigMap
+      restartPolicy: "Never"
+
+---
+
+apiVersion: "v1"
+# TODO: WHY? Just express ConfigMap alone at the top level?
+kind: "List"
+items:
+- apiVersion: "v1"
+  kind: "ConfigMap"
+  data:
+    run.py: |
+      print("I'm the Python script (run.py)!")
+      print("Hello world :|")
+  metadata:
+    creationTimestamp: null
+    name: "parsl-init-scripts"
+# TODO: WHY? Omit?
+metadata: {}
