@@ -13,6 +13,7 @@ from parsl.data_provider.files import File
 
 
 def get_k8s_context() -> str:
+    # TODO: Can this be done with the `kubernetes` Python module?
     result = subprocess.run(
         "kubectl config current-context",
         shell=True,
