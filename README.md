@@ -52,7 +52,9 @@ python run.py
 > up properly. This may require manual cleanup!
 
 
-## Cleaning up failed parsl pods
+## Troubleshooting
+
+### Cleaning up failed parsl pods
 
 Some failure states result in pods getting stuck in a restart loop that do not
 get cleaned up automatically. To find pods in this state:
