@@ -36,6 +36,8 @@ def get_k8s_context() -> str:
             " the code to re-test."
         )
 
+    print(f"Detected context: {context}")
+
     return context
 
 
