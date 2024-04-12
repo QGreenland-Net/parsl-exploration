@@ -30,6 +30,7 @@ def get_k8s_context() -> str:
 
 
 def get_k8s_namespace_for_context(context: str) -> str:
+    # TODO: can this be done with the `kubernetes` Python package?
     namespace = {
         "rancher-desktop": "default",
         "dev-qgnet": "qgnet",
