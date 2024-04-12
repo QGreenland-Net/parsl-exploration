@@ -44,4 +44,20 @@ python run.py
 
 > [!WARNING]
 > If a run fails, it is possible that a pod will get "stuck" and not get cleaned
-> up properly. This may require manual cleanup! TODO: how?
+> up properly. This may require manual cleanup!
+
+
+## Cleaning up failed parsl pods
+
+Some failure states result in pods getting stuck in a restart loop that do not
+get cleaned up automatically. To find pods in this state:
+
+```
+kubectl get pods
+```
+
+To remove a pod that is stuck:
+
+```
+kubectl delete pod <pod name>
+```
