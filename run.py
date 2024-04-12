@@ -33,7 +33,7 @@ config = Config(
                 # The secret key to download the image
                 # secret="YOUR_KUBE_SECRET",
                 # Should follow the Kubernetes naming rules
-                pod_name="new-pod-name",
+                pod_name="parsl-exploration",
                 nodes_per_block=1,
                 init_blocks=1,
                 # Maximum number of pods to scale up
