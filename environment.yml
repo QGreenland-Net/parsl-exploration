@@ -3,5 +3,7 @@ channels:
   - "conda-forge"
   - "nodefaults"
 dependencies:
-  - python ~=3.12
+  - python ~=3.12.0
   - parsl-with-kubernetes ~=2024.4
+  # TODO: Remove once this build is completed: https://github.com/conda-forge/parsl-feedstock/pull/72
+  - python-kubernetes
