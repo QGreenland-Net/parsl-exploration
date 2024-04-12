@@ -1,4 +1,9 @@
-"""Example parsl workflow to be executed on kubernetes."""
+"""Example parsl workflow to be executed on kubernetes.
+
+TODO:
+
+* Less printing more logging
+"""
 
 import subprocess
 
@@ -28,16 +33,8 @@ def get_k8s_context() -> str:
 
     context = result.stdout.decode("utf8").strip()
 
-    assert context in ("rancher-desktop", "dev-qgnet")
-    if context == "dev-qgnet":
-        raise NotImplementedError(
-            "Running on the 'dev-qgnet' namespace fails due to container"
-            " communication issues. Symptom: This script hangs. Remove this check from"
-            " the code to re-test."
-        )
-
     print(f"Detected context: {context}")
-
+    assert context in ("rancher-desktop", "dev-qgnet")
     return context
 
 
@@ -62,13 +59,14 @@ def get_parsl_config():
                 cores_per_worker=1,
                 max_workers_per_node=1,
                 worker_logdir_root="/tmp/",
-                # Address for the pod worker to connect back
-                address=address_by_route(),
+                # Address for the pod worker to connect back to the "interchange"
+                address="8.44.147.13",
+                # address=address_by_route(),
                 # https://parsl.readthedocs.io/en/stable/stubs/parsl.providers.KubernetesProvider.html#parsl.providers.KubernetesProvider
                 provider=KubernetesProvider(
                     namespace=k8s_namespace,
                     # Docker image url to use for pods
-                    image="python",
+                    image="gchr.io/mbjones/k8sparsl:0.3",
                     # Command to be run upon pod start, such as:
                     # "module load Anaconda; source activate parsl_env".
                     # or "pip install parsl"
