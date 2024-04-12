@@ -29,6 +29,11 @@ kubectl config use-config rancher-desktop
 
 to run on the `dev-qgnet` k8s cluster:
 
+> [!WARNING]
+> Deployment to `dev-qgnet` currently does not work. See
+> https://github.com/QGreenland-Net/parsl-exploration/issues/3
+
+
 ```
 kubectl config use-config dev-qgnet
 ```
