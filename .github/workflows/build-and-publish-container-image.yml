@@ -2,12 +2,11 @@ name: "Build and publish container image"
 
 on:
   push:
-    # paths:
-    #   - "Dockerfile"
-    #   - "environment.yml"
+    paths:
+      - "Dockerfile"
+      - "environment.yml"
     branches:
       - "main"
-      - "run-parsl-on-adc-cluster"
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
