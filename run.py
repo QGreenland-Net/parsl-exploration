@@ -66,13 +66,13 @@ def get_parsl_config():
                 provider=KubernetesProvider(
                     namespace=k8s_namespace,
                     # Docker image url to use for pods
-                    image="gchr.io/mbjones/k8sparsl:0.3",
+                    image="ghcr.io/qgreenland-net/parsl-exploration:latest",
                     # Command to be run upon pod start, such as:
                     # "module load Anaconda; source activate parsl_env".
                     # or "pip install parsl"
                     # NOTE: parsl needs to be installed or the pod will fail to
                     # start properly and the process will hang.
-                    worker_init="pip install parsl",
+                    worker_init="",
                     # The secret key to download the image
                     # secret="YOUR_KUBE_SECRET",
                     # Should follow the Kubernetes naming rules
