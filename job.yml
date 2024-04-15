@@ -21,7 +21,7 @@ spec:
             name: "parsl-init-script"
       containers:
         - name: "parsl-init"
-          image: "ghrc.io/qgreenland-net/parsl-exploration:latest"
+          image: "ghcr.io/qgreenland-net/parsl-exploration:latest"
           volumeMounts:
             - mountPath: "/parsl-init-script"
               name: "parsl-init-script-volume"
