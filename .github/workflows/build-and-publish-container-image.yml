@@ -19,7 +19,9 @@ jobs:
     runs-on: "ubuntu-latest"
     env:
       # IMAGE_NAME: "${{ github.repo_name_or_something_like_that }}"
-      IMAGE_NAME: "parsl-exploration"
+      # NOTE: It's important that the image name matches org name / repo name.
+      # TODO: Calculate image name?
+      IMAGE_NAME: "qgreenland-net/parsl-exploration"
       # GitHub Actions expressions don't have great conditional support, so
       # writing a ternary expression looks a lot like bash. In Python, this
       # would read as:
