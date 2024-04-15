@@ -6,6 +6,8 @@ spec:
   # TODO: when completions is 1, parallelism must be 1, but do we need to specify it?
   parallelism: 1
   completions: 1
+  # TODO: Supported in k8s 1.23, but ADC has 1.22; this would be nice :)
+  # ttlSecondsAfterFinished: 60
   template:
     metadata:
       name: "parsl-init"
@@ -14,38 +16,22 @@ spec:
       #     MountVolume.SetUp failed for volume "kube-api-access-xxxxx" : object "qgnet"/"kube-root-ca.crt" not registered
       automountServiceAccountToken: false
       volumes:
-        - name: "parsl-init-scripts-volume"
+        - name: "parsl-init-script-volume"
           configMap:
-            name: "parsl-init-scripts"
+            name: "parsl-init-script"
       containers:
         - name: "parsl-init"
           image: "python"
           volumeMounts:
-            - mountPath: "/parsl-init-scripts"
-              name: "parsl-init-scripts-volume"
+            - mountPath: "/parsl-init-script"
+              name: "parsl-init-script-volume"
           env:
             # TODO: Do we need this?
             - name: "HOME"
               value: "/tmp"
           command:
-            - "python"
-            - "/parsl-init-scripts/run.py"  # Filename from ConfigMap
+            - "bash"
+            - "-c"
+            # TODO: Bake parsl into an image
+            - "pip install parsl && python /parsl-init-script/run.py"  # << Filename from ConfigMap
       restartPolicy: "Never"
-
----
-
-apiVersion: "v1"
-# TODO: WHY? Just express ConfigMap alone at the top level?
-kind: "List"
-items:
-- apiVersion: "v1"
-  kind: "ConfigMap"
-  data:
-    run.py: |
-      print("I'm the Python script (run.py)!")
-      print("Hello world :|")
-  metadata:
-    creationTimestamp: null
-    name: "parsl-init-scripts"
-# TODO: WHY? Omit?
-metadata: {}

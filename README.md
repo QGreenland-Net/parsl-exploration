@@ -59,11 +59,8 @@ workers need to be able to connect back to the host running the Parsl program. I
 behind a firewall you don't control, this may not be possible!
 
 The workaround we're using is to submit a Kubernetes Job that runs the Parsl init
-program from a ConfigMap. See `hello-world-job.yml` for a generic example of this.
-
-Run it with `kubectl apply -f hello-world-job.yml`.
-
-We haven't yet got this working with Parsl, but that's the next step!
+program from a ConfigMap. See `run-on-remote-cluster.sh` and `job.yml` for an
+example of this.
 
 
 ## Troubleshooting
