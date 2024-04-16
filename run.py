@@ -43,8 +43,7 @@ def get_parsl_config():
                 max_workers_per_node=1,
                 worker_logdir_root="/tmp/",
                 # Address for the pod worker to connect back to the "interchange"
-                address="8.44.147.13",
-                # address=address_by_route(),
+                address=address_by_route(),
                 # https://parsl.readthedocs.io/en/stable/stubs/parsl.providers.KubernetesProvider.html#parsl.providers.KubernetesProvider
                 provider=KubernetesProvider(
                     namespace=k8s_namespace,
