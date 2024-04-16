@@ -24,10 +24,6 @@ spec:
           volumeMounts:
             - mountPath: "/parsl-init-script"
               name: "parsl-init-script-volume"
-          env:
-            # TODO: Do we need this?
-            - name: "HOME"
-              value: "/tmp"
           command:
             - "bash"
             - "-c"
