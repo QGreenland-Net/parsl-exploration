@@ -32,5 +32,5 @@ spec:
           command:
             - "bash"
             - "-c"
-            - "python /parsl-init-script/run.py"  # << Filename from ConfigMap
+            - "micromamba run -n base python /parsl-init-script/run.py"
       restartPolicy: "Never"
