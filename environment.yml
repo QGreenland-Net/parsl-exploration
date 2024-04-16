@@ -7,3 +7,6 @@ dependencies:
   - parsl-with-kubernetes ~=2024.4
   # TODO: Remove once this build is completed: https://github.com/conda-forge/parsl-feedstock/pull/72
   - python-kubernetes
+
+  - pip:
+      - "--editable=git+https://github.com/QGreenland-Net/parsl.git@k8s-use-incluser-config-fallback#egg=parsl"
