@@ -48,7 +48,7 @@ def get_parsl_config():
                 provider=KubernetesProvider(
                     namespace=k8s_namespace,
                     # Docker image url to use for pods
-                    image="ghcr.io/qgreenland-net/parsl-exploration:v0.1.0",
+                    image="ghcr.io/qgreenland-net/parsl-exploration:v0.1.1",
                     # Command to be run upon pod start, such as:
                     # "module load Anaconda; source activate parsl_env".
                     # or "pip install parsl"
@@ -62,7 +62,7 @@ def get_parsl_config():
                     nodes_per_block=1,
                     init_blocks=1,
                     # Maximum number of pods to scale up
-                    max_blocks=10,
+                    max_blocks=1,
                 ),
             ),
         ]
