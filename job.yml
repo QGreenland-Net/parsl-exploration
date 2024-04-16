@@ -12,6 +12,7 @@ spec:
     metadata:
       name: "parsl-init"
     spec:
+      serviceAccountName: "qgnet"
       automountServiceAccountToken: true
       volumes:
         - name: "parsl-init-script-volume"
