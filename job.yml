@@ -12,9 +12,7 @@ spec:
     metadata:
       name: "parsl-init"
     spec:
-      # TODO: Why do we need this? Can ADC fix it? Without, we get errors like:
-      #     MountVolume.SetUp failed for volume "kube-api-access-xxxxx" : object "qgnet"/"kube-root-ca.crt" not registered
-      automountServiceAccountToken: false
+      automountServiceAccountToken: true
       volumes:
         - name: "parsl-init-script-volume"
           configMap:
