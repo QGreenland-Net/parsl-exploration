@@ -5,7 +5,7 @@ TODO:
 * Less printing more logging
 """
 
-import subprocess
+import os
 
 from parsl.config import Config
 from parsl.executors import HighThroughputExecutor
@@ -14,43 +14,26 @@ from parsl.addresses import address_by_route
 from parsl import python_app, bash_app
 import parsl
 from parsl.data_provider.files import File
+import kubernetes
 
 
-def get_k8s_context() -> str:
-    # TODO: Can this be done with the `kubernetes` Python module?
-    result = subprocess.run(
-        "kubectl config current-context",
-        shell=True,
-        capture_output=True,
-    )
-
+def get_current_namespace():
+    """From: https://github.com/kubernetes-client/python/issues/363#issuecomment-1122471443"""
+    ns_path = "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
+    if os.path.exists(ns_path):
+        with open(ns_path) as f:
+            return f.read().strip()
     try:
-        result.check_returncode()
-    except:
-        raise RuntimeError(
-            "Context not set. Use `kubectl config use-context` to select one."
-        )
-
-    context = result.stdout.decode("utf8").strip()
-
-    print(f"Detected context: {context}")
-    assert context in ("rancher-desktop", "dev-qgnet")
-    return context
-
-
-def get_k8s_namespace_for_context(context: str) -> str:
-    # TODO: can this be done with the `kubernetes` Python package?
-    namespace = {
-        "rancher-desktop": "default",
-        "dev-qgnet": "qgnet",
-    }[context]
-
-    return namespace
+        _, active_context = kubernetes.config.list_kube_config_contexts()
+        return active_context["context"]["namespace"]
+    except KeyError:
+        return "default"
 
 
 def get_parsl_config():
-    k8s_context = get_k8s_context()
-    k8s_namespace = get_k8s_namespace_for_context(k8s_context)
+    k8s_namespace = get_current_namespace()
+    print(f"Current namespace: {k8s_namespace}")
+
     config = Config(
         executors=[
             HighThroughputExecutor(
