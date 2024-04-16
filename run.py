@@ -62,7 +62,7 @@ def get_parsl_config():
                     nodes_per_block=1,
                     init_blocks=1,
                     # Maximum number of pods to scale up
-                    max_blocks=10,
+                    max_blocks=1,
                 ),
             ),
         ]
