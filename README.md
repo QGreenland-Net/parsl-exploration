@@ -79,3 +79,27 @@ To remove a pod that is stuck:
 ```
 kubectl delete pod <pod name>
 ```
+
+
+## Setting up `qgnet` user on rancher-desktop
+
+Rancher desktop should be configured to have a `qgnet` service account with
+permissions for managing pods (creation/deletion).
+
+First, create a new service account:
+
+```
+kubectl create serviceaccount qgnet
+```
+
+Then, create a rolebinding for `qgnet` in the default namespace w/ the admin
+role:
+
+> [!WARNING]
+> the admin role may have more permissions than necessary. TODO: confirm which
+> permissions are set on `qgnet` service account associated w/ the `dev-qgnet`
+> namespace on the ADC's k8s.
+
+```
+kubectl create rolebinding qgnet --clusterrole=admin --serviceaccount=default:qgnet --namespace=default
+```
