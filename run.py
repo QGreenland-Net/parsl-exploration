@@ -63,6 +63,8 @@ def get_parsl_config():
                     init_blocks=1,
                     # Maximum number of pods to scale up
                     max_blocks=1,
+                    # list of tuples w/ the format: (PVC Name, Mount Directory)
+                    persistent_volumes=[("qgnet-pvc-test-1", "/data")],
                 ),
             ),
         ]
@@ -105,7 +107,7 @@ if __name__ == "__main__":
         print(f"Random number: {random.result()}")
 
         # Save the random number to a file
-        output_path = "sequential-output.txt"
+        output_path = "/data/sequential-output.txt"
         saved = save_value_to_file(
             value=random,
             output_filepath=File(output_path),
