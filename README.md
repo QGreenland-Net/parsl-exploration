@@ -106,6 +106,20 @@ example of this.
 > configuration. See: https://github.com/Parsl/parsl/pull/3357
 
 
+### Viewing job output file(s)
+
+Check [Inspect a Kubernetes PersistentVolumeClaim by Frank
+Sauerburger](https://frank.sauerburger.io/2021/12/01/inspect-k8s-pvc.html) for an
+excellent tutorial.
+
+* `kubectl apply -f k8s/pvc-inspector.yml`
+    * You may need to wait a few seconds...
+* `kubectl exec -it pvc-inspector -- sh`
+    * Inspect `/pvc` directory
+    * Quit
+* `kubectl delete pod pvc-inspector`
+
+
 ## Troubleshooting
 
 ### Cleaning up failed parsl pods
@@ -120,13 +134,13 @@ kubectl get pods
 To remove a pod that is stuck:
 
 ```bash
-kubectl delete pod <pod name>
+kubectl delete pod {pod-name}
 ```
 
 ### File not found error starting Rancher Desktop
 
-You must have a correct `$KUBECONFIG` path. Paths including `~` or paths to files which
-do not exist will cause Rancher to fail starting the cluster.
+You must have a valid `$KUBECONFIG` path. Paths including `~` or paths to files which do
+not exist will cause Rancher to fail starting the cluster.
 
 
 ## Reference

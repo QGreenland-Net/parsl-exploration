@@ -15,17 +15,38 @@ spec:
       serviceAccountName: "qgnet"
       automountServiceAccountToken: true
       volumes:
+        # This is how the Python script gets to the cluster
         - name: "parsl-init-script-volume"
           configMap:
             name: "parsl-init-script"
+        # Data storage:
+        - name: "data"
+          persistentVolumeClaim:
+            claimName: "qgnet-pvc-test-1"
       containers:
         - name: "parsl-init"
           image: "ghcr.io/qgreenland-net/parsl-exploration:v0.1.1"
           volumeMounts:
-            - mountPath: "/parsl-init-script"
-              name: "parsl-init-script-volume"
+            - name: "parsl-init-script-volume"
+              mountPath: "/parsl-init-script"
+            - name: "data"
+              mountPath: "/data"
           command:
             - "bash"
             - "-c"
             - "micromamba run -n base python /parsl-init-script/run.py"
       restartPolicy: "Never"
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "qgnet-pvc-test-1"
+  namespace: "qgnet"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  volumeMode: "Filesystem"
+  resources:
+    requests:
+      storage: "100Mi"
+  storageClassName: "csi-rbd-sc"
