@@ -10,7 +10,7 @@ kubectl create configmap parsl-init-script --from-file run.py \
 
 # Submit a "Job" to the cluster which runs our script
 # TODO: Should we delete any pre-existing job? We're manually doing `kubectl delete` now.
-kubectl apply -f job.yml
+kubectl apply -f k8s/job.yml
 
 
 # TODO: Can we also attach to monitor `kubectl describe job` or something?
