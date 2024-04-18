@@ -128,7 +128,9 @@ excellent tutorial.
 MountVolume.SetUp failed for volume "parsl-init-script-volume" : object "qgnet"/"parsl-init-script" not registered
 ```
 
-Only occurs when also mounting a PVC. _TODO: How to resolve?_
+Does not always occur.
+
+[See related GitHub issue](https://github.com/kubernetes/kubernetes/issues/105204).
 
 
 ### Cleaning up failed parsl pods
