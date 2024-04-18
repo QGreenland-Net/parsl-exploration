@@ -122,6 +122,17 @@ excellent tutorial.
 
 ## Troubleshooting
 
+### `parsl-init-script` ConfigMap fails to mount
+
+```bash
+MountVolume.SetUp failed for volume "parsl-init-script-volume" : object "qgnet"/"parsl-init-script" not registered
+```
+
+Does not always occur.
+
+[See related GitHub issue](https://github.com/kubernetes/kubernetes/issues/105204).
+
+
 ### Cleaning up failed parsl pods
 
 Some failure states result in pods getting stuck in a restart loop that do not
@@ -136,6 +147,7 @@ To remove a pod that is stuck:
 ```bash
 kubectl delete pod {pod-name}
 ```
+
 
 ### File not found error starting Rancher Desktop
 
