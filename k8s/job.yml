@@ -32,9 +32,12 @@ spec:
             - name: "data"
               mountPath: "/data"
           command:
-            - "bash"
-            - "-c"
-            - "micromamba run -n base python /parsl-init-script/run.py"
+            - "micromamba"
+            - "run"
+            - "-n"
+            - "base"
+            - "python"
+            - "/parsl-init-script/run.py"
       restartPolicy: "Never"
 ---
 apiVersion: "v1"
