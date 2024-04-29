@@ -8,10 +8,11 @@ dependencies:
   # dependency specification problem:
   #     https://github.com/conda-forge/parsl-feedstock/pull/72
   - parsl-with-kubernetes ~=2024.4,>=2014.4.15
+  - gdal
 
   # We forked Parsl to get around this issue:
   #     https://github.com/Parsl/parsl/pull/3357
   # TODO: Once the PR above is merged, ensure built for conda-forge and move
   #       parsl back out of the pip section
   - pip:
-      - "--editable=git+https://github.com/QGreenland-Net/parsl.git@k8s-use-incluser-config-fallback#egg=parsl"
+      - "--editable=git+https://github.com/trey-stafford/parsl.git@k8s-use-incluser-config-fallback#egg=parsl"

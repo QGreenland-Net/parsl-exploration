@@ -1,7 +1,7 @@
 FROM mambaorg/micromamba:1.5.8 AS micromamba
 
 USER root
-RUN apt update && apt install -y git
+RUN apt update && apt install -y git wget
 USER $MAMBA_USER
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . .
