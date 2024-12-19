@@ -1,5 +1,7 @@
 # parsl-exploration
 
+This repository has been archived.
+
 Exploration of the use of [parsl](https://parsl-project.org/) for data
 processing pipelines in k8s:
 
